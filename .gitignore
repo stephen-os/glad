@@ -1,5 +1,9 @@
-*.pyc
-*.xml
-*.kdev4
-build/
-*.o
+# Build directories
+bin/
+bin-int/
+
+# Visual Studio project files
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
