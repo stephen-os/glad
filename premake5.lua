@@ -3,6 +3,9 @@ project "GLAD"
     language "C"
     staticruntime "off"
     
+    -- Enable multi-core compilation (cross-platform)
+    flags { "MultiProcessorCompile" }
+    
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
     
@@ -18,14 +21,33 @@ project "GLAD"
         "include"
     }
     
+    -- Platform-specific settings
     filter "system:windows"
         systemversion "latest"
-        buildoptions { "/MP" }
         
+    filter "system:linux"
+        pic "On"
+        systemversion "latest"
+        
+    filter "system:macosx"
+        systemversion "latest"
+        
+    -- Configuration-specific settings
     filter "configurations:Debug"
         runtime "Debug"
-        symbols "on"
+        symbols "On"
+        defines { "DEBUG" }
         
     filter "configurations:Release"
         runtime "Release"
-        optimize "on"
+        optimize "On"
+        defines { "NDEBUG" }
+        
+    filter "configurations:Dist"
+        runtime "Release"
+        optimize "On"
+        symbols "Off"
+        defines { "NDEBUG", "DIST_BUILD" }
+        
+    -- Clear filters
+    filter {}
