@@ -7,3 +7,9 @@ bin-int/
 *.vcxproj.filters
 *.vcxproj.user
 *.sln
+# Build artifacts
+bin/
+bin-int/
+*.vcxproj
+*.vcxproj.filters
+premake5.lua
